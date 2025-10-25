@@ -17,7 +17,6 @@ import {
   CheckCircle,
   XCircle,
   Mail,
-  ChevronDown,
   Menu,
   X,
   ArrowRight,
@@ -47,7 +46,9 @@ import Image from "next/image";
 
 const MediQubeLanding = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [animatedStats, setAnimatedStats] = useState({});
+  const [animatedStats, setAnimatedStats] = useState<Record<string, number>>(
+    {}
+  );
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -64,16 +65,10 @@ const MediQubeLanding = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const id = entry.target.getAttribute("data-stat-id");
-            const dataValue = entry.target.getAttribute("data-value"); // Capture the result of getAttribute
+            const dataValue = entry.target.getAttribute("data-value");
 
-            // Check if both id and dataValue are not null before proceeding
             if (id && dataValue) {
-              animateValue(
-                id,
-                0,
-                parseInt(dataValue), // Pass the non-null string
-                2000
-              );
+              animateValue(id, 0, parseInt(dataValue), 2000);
             }
           }
         });
@@ -87,7 +82,12 @@ const MediQubeLanding = () => {
     return () => observer.disconnect();
   }, []);
 
-  const animateValue = (id, start, end, duration) => {
+  const animateValue = (
+    id: string,
+    start: number,
+    end: number,
+    duration: number
+  ) => {
     const range = end - start;
     const increment = range / (duration / 16);
     let current = start;
@@ -102,12 +102,12 @@ const MediQubeLanding = () => {
     }, 16);
   };
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMobileMenuOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     alert("Thank you! We'll be in touch within 24-48 hours.");
@@ -227,8 +227,12 @@ const MediQubeLanding = () => {
               </Badge>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#212121] leading-tight">
-                73% of Patients Don't Know Why They're Taking Their Medications.
-                <span className="text-[#5B8157]"> We're Changing That.</span>
+                73% of Patients Don&apos;t Know Why They&apos;re Taking Their
+                Medications.
+                <span className="text-[#5B8157]">
+                  {" "}
+                  We&apos;re Changing That.
+                </span>
               </h1>
 
               <p className="text-lg sm:text-xl text-[#616161] leading-relaxed">
@@ -290,21 +294,7 @@ const MediQubeLanding = () => {
             <div className="relative">
               <div className="relative aspect-[9/19] max-w-sm mx-auto bg-gradient-to-br from-gray-100 to-gray-200 rounded-[3rem] shadow-2xl flex items-center justify-center border-8 border-[#344E41] overflow-hidden transform hover:scale-105 transition-transform duration-300">
                 <div className="absolute inset-0 bg-white/5 "></div>
-                {/* <div className="relative text-center p-8 z-10">
-                  <Smartphone
-                    className="mx-auto mb-4 text-gray-400"
-                    size={64}
-                  />
-                  <p className="text-gray-600 font-medium text-sm">
-                    Screenshot #1:
-                    <br />
-                    Family Dashboard
-                  </p>
-                  <p className="text-gray-500 text-xs mt-2">
-                    4 profiles • Document tracking • Medication alerts
-                  </p>
-                </div> */}
-                <Image src={Image1} alt="" />
+                <Image src={Image1} alt="Family Dashboard" />
               </div>
               {/* Floating elements for visual interest */}
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-[#5B8157]/10 rounded-full blur-xl"></div>
@@ -322,8 +312,8 @@ const MediQubeLanding = () => {
               The Global Healthcare Crisis
             </h2>
             <p className="text-xl text-[#616161] max-w-3xl mx-auto">
-              These aren't just numbers—they're families struggling with
-              healthcare every single day.
+              These aren&apos;t just numbers—they&apos;re families struggling
+              with healthcare every single day.
             </p>
           </div>
 
@@ -412,8 +402,8 @@ const MediQubeLanding = () => {
                 Right now, your elderly parent might be taking 8 different
                 medications.
               </strong>{" "}
-              Ask them: "Why are you taking each one?" Most can't answer. They
-              trust the doctor, but they don't understand.{" "}
+              Ask them: &quot;Why are you taking each one?&quot; Most can&apos;t
+              answer. They trust the doctor, but they don&apos;t understand.{" "}
               <span className="text-[#5B8157] font-semibold">
                 MediQube believes patients deserve to know.
               </span>
@@ -433,7 +423,7 @@ const MediQubeLanding = () => {
               Production-Ready v1.0
             </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold text-[#212121] mb-4">
-              What's Working Today
+              What&apos;s Working Today
             </h2>
             <p className="text-xl text-[#616161] max-w-3xl mx-auto">
               Built with modern technology. Trusted by real families. Available
@@ -546,7 +536,8 @@ const MediQubeLanding = () => {
               The Medication Knowledge Revolution
             </h2>
             <p className="text-xl text-[#616161] max-w-3xl mx-auto">
-              Understanding what you take shouldn't require a medical degree.
+              Understanding what you take shouldn&apos;t require a medical
+              degree.
             </p>
           </div>
 
@@ -585,7 +576,7 @@ const MediQubeLanding = () => {
               <div className="relative z-10">
                 <h3 className="text-2xl font-bold mb-6 flex items-center">
                   <CheckCircle className="mr-3" size={28} />
-                  MediQube's Solution
+                  MediQube&apos;s Solution
                 </h3>
                 <ul className="space-y-4">
                   {[
@@ -612,18 +603,7 @@ const MediQubeLanding = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative aspect-[9/19] max-w-sm mx-auto bg-gradient-to-br from-gray-100 to-gray-200 rounded-[3rem] shadow-2xl flex items-center justify-center border-8 border-[#344E41] overflow-hidden">
               <div className="absolute inset-0 bg-white/5 "></div>
-              {/* <div className="relative text-center p-8 z-10">
-                <BookOpen className="mx-auto mb-4 text-gray-400" size={64} />
-                <p className="text-gray-600 font-medium text-sm">
-                  Screenshot #5:
-                  <br />
-                  Medication Intelligence
-                </p>
-                <p className="text-gray-500 text-xs mt-2">
-                  Drug details • Ingredient breakdown • AI explanations
-                </p>
-              </div> */}
-              <Image src={Image2} alt="" />
+              <Image src={Image2} alt="Medication Intelligence" />
             </div>
 
             <div>
@@ -634,7 +614,7 @@ const MediQubeLanding = () => {
                   <strong className="text-[#212121]">
                     more confident about their medications
                   </strong>{" "}
-                  after using MediQube's Medication Intelligence feature.
+                  after using MediQube&apos;s Medication Intelligence feature.
                 </p>
               </div>
 
@@ -657,7 +637,8 @@ const MediQubeLanding = () => {
                     size={20}
                   />
                   <span>
-                    Know exactly what ingredients you're putting in your body
+                    Know exactly what ingredients you&apos;re putting in your
+                    body
                   </span>
                 </li>
                 <li className="flex items-start">
@@ -666,8 +647,8 @@ const MediQubeLanding = () => {
                     size={20}
                   />
                   <span>
-                    Get alerts about potential drug interactions before it's too
-                    late
+                    Get alerts about potential drug interactions before
+                    it&apos;s too late
                   </span>
                 </li>
                 <li className="flex items-start">
@@ -691,7 +672,7 @@ const MediQubeLanding = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-[#212121] mb-4">
-              We're Just Getting Started
+              We&apos;re Just Getting Started
             </h2>
             <p className="text-xl text-[#616161] max-w-3xl mx-auto">
               The future of family healthcare is intelligent, proactive, and
@@ -780,10 +761,11 @@ const MediQubeLanding = () => {
           <div className="mt-16 text-center">
             <div className="inline-block bg-gradient-to-r from-[#5B8157] to-[#344E41] rounded-2xl p-8 text-white max-w-4xl">
               <p className="text-2xl font-bold mb-2">
-                MediQube isn't just a storage app.
+                MediQube isn&apos;t just a storage app.
               </p>
               <p className="text-xl">
-                It's the operating system for family healthcare in the AI age.
+                It&apos;s the operating system for family healthcare in the AI
+                age.
               </p>
             </div>
           </div>
@@ -953,9 +935,9 @@ const MediQubeLanding = () => {
               Join the Healthcare Revolution
             </h2>
             <p className="text-xl text-[#616161]">
-              Whether you're a family seeking early access, an investor seeing
-              the future, or a partner wanting to collaborate—we want to hear
-              from you.
+              Whether you&apos;re a family seeking early access, an investor
+              seeing the future, or a partner wanting to collaborate—we want to
+              hear from you.
             </p>
           </div>
 
@@ -998,7 +980,7 @@ const MediQubeLanding = () => {
 
                 <div className="space-y-2">
                   <Label htmlFor="interestType" className="text-[#212121]">
-                    I'm interested as a... *
+                    I&apos;m interested as a... *
                   </Label>
                   <select
                     id="interestType"
