@@ -64,12 +64,17 @@ const MediQubeLanding = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const id = entry.target.getAttribute("data-stat-id");
-            animateValue(
-              id,
-              0,
-              parseInt(entry.target.getAttribute("data-value")),
-              2000
-            );
+            const dataValue = entry.target.getAttribute("data-value"); // Capture the result of getAttribute
+
+            // Check if both id and dataValue are not null before proceeding
+            if (id && dataValue) {
+              animateValue(
+                id,
+                0,
+                parseInt(dataValue), // Pass the non-null string
+                2000
+              );
+            }
           }
         });
       },
